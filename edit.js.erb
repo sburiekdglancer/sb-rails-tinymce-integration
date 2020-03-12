@@ -1,0 +1,26 @@
+$("#data_modal").html("<%= escape_javascript(render 'emails/edit')%>").modal();
+
+$(".parsley-form").parsley("validate");
+
+// Set up selectize field
+$('#email_from_email').selectize({
+  plugins: ['remove_button'],
+  maxItems: 1,
+  create: true
+});
+$('.selectize-control, .selectize-dropdown').removeClass('form-control');
+
+function makeBodyRichEditor() {
+  $('#email_body').tinymce({
+    readonly: readonly,
+    height: 400,
+    menubar: false,
+    plugins: ['lists link image'],
+    toolbar: 'undo redo | formatselect | ' +
+             'bold italic underline strikethrough forecolor backcolor | ' +
+             'alignleft aligncenter alignright alignjustify | ' +
+             'bullist numlist outdent indent | removeformat'
+  });
+}
+
+makeBodyRichEditor();

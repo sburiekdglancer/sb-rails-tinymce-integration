@@ -1,0 +1,37 @@
+.modal-dialog.modal-xl.modal-lg.modal-md
+  .modal-content
+    = form_for(@email, url: dashboard_email_path, remote: true, html:{class: "form-horizontal parsley-form", id: "edit_campaign"}) do |f|
+
+      .modal-header
+        %button.close{type: "button", aria:{hidden: true}, data:{dismiss: :modal}} ×
+        %h4.modal-title#data_title Edit Email
+
+      .modal-body
+        .form-group
+          = f.label :name, "Name :", class: "col-sm-2 control-label"
+          .col-sm-6
+            = f.text_field :name, required: true, readonly: @readonly, :"data-parsley-trigger"=>"change", class: "form-control input-sm"
+
+        #form-group
+          = f.label :from_email, "From Email :", class: "col-sm-2 control-label"
+          .col-sm-6
+            = f.select :from_email, options_for_select(@from_emails, @primary_from_email), {}, {disabled: @readonly, class: "form-control"}
+
+        #subject_field.form-group
+          = f.label :subject, "Subject :", class: "col-sm-2 control-label"
+          .col-sm-6
+            = f.text_field :subject, readonly: @readonly, :"data-parsley-trigger"=>"change", class: "form-control input-sm"
+
+        .form-group
+          = f.label :body, "Body :", class: "col-sm-2 control-label"
+          .col-sm-8
+            = f.text_area :body, size: "80x10", required: true, readonly: @readonly, class: "form-control input-sm"
+
+      .modal-footer
+        = button_tag(type: :submit, class: "btn btn-primary") do
+          Save
+          %i.fa.fa-angle-double-right
+        
+        %button.btn.btn-default{type: :button, data:{dismiss: :modal}} Cancel
+
+= tinymce_assets
